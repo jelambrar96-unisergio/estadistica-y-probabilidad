@@ -6,7 +6,7 @@ En esta clase se presenta una introducción estructurada y rigurosa a los **conc
 
 ## 1. ¿Qué es la estadística descriptiva?
 
-La **estadística descriptiva*- es la rama de la estadística que se encarga de **recolectar, organizar, resumir y presentar datos*- con el objetivo de describir las características principales de un conjunto de observaciones.
+La **estadística descriptiva** es la rama de la estadística que se encarga de **recolectar, organizar, resumir y presentar datos** con el objetivo de describir las características principales de un conjunto de observaciones.
 
 Su propósito central es **transformar datos crudos en información comprensible**, utilizando resúmenes numéricos, tablas y representaciones gráficas.
 
@@ -27,7 +27,7 @@ La estadística descriptiva **no va más allá de los datos disponibles**, mient
 
 ### 1.2. ¿Qué es un estudio estadístico?
 
-Un **estudio estadístico*- es un proceso sistemático que involucra las siguientes etapas:
+Un **estudio estadístico** es un proceso sistemático que involucra las siguientes etapas:
 
 1. **Definición del problema**: Identificar qué se quiere estudiar y por qué.
 2. **Recopilación de datos**: Obtener información de la población o muestra.
@@ -39,10 +39,10 @@ Un **estudio estadístico*- es un proceso sistemático que involucra las siguien
 
 La estadística descriptiva es esencial porque:
 
-- Permite **entender patrones, tendencias y variabilidad*- en los datos.
-- Es el **primer paso obligatorio*- antes de cualquier análisis inferencial o modelado.
+- Permite **entender patrones, tendencias y variabilidad** en los datos.
+- Es el **primer paso obligatorio** antes de cualquier análisis inferencial o modelado.
 - Facilita la **detección de errores, valores atípicos y sesgos**.
-- Sirve como base para la **toma de decisiones informadas*- en ingeniería, economía y ciencias.
+- Sirve como base para la **toma de decisiones informadas** en ingeniería, economía y ciencias.
 
 ### 1.4. Aplicaciones de la estadística descriptiva
 
@@ -68,7 +68,7 @@ Generalmente, estudiar toda la población (censo) es costoso o inviable, por lo 
 
 #### Tipos de muestreo probabilístico
 
-En el muestreo probabilístico, cada elemento de la población tiene una **probabilidad conocida y no nula*- de ser seleccionado. Esto permite aplicar inferencia estadística y cuantificar el error muestral.
+En el muestreo probabilístico, cada elemento de la población tiene una **probabilidad conocida y no nula** de ser seleccionado. Esto permite aplicar inferencia estadística y cuantificar el error muestral.
 
 **a) Muestreo aleatorio simple**
 Consiste en seleccionar una muestra de tamaño (n) de una población de tamaño (N) de tal forma que **todas las muestras posibles tengan la misma probabilidad de ser elegidas**.
@@ -87,7 +87,7 @@ En un registro de 2,000 clientes se desea una muestra de 200. Se calcula (k = 20
 **Figura 2**. Muestreo aleatorio simple y muestreo sistemático. Adaptado de "Estadística" por Mario R. Triolla, 2004, Person Education.
 
 **c) Muestreo estratificado**
-La población se divide en **estratos homogéneos*- (grupos similares internamente) y se toma una muestra aleatoria de cada estrato.
+La población se divide en **estratos homogéneos** (grupos similares internamente) y se toma una muestra aleatoria de cada estrato.
 
 *Ejemplo:*
 En una universidad, los estudiantes se dividen en estratos según la carrera (ingeniería, ciencias sociales, salud). Se selecciona una muestra aleatoria proporcional de cada carrera para garantizar representatividad.
@@ -107,13 +107,13 @@ Para evaluar el rendimiento académico en una ciudad, se seleccionan aleatoriame
 En el muestreo no probabilístico, la probabilidad de selección de los elementos **no es conocida**, por lo que no es posible medir formalmente el error muestral. Se usa principalmente en estudios exploratorios.
 
 **a) Muestreo por conveniencia**
-La muestra se selecciona según la **facilidad de acceso*- a los elementos.
+La muestra se selecciona según la **facilidad de acceso** a los elementos.
 
 *Ejemplo:*
 Un investigador encuesta a los primeros 100 estudiantes que encuentra en la biblioteca.
 
 **b) Muestreo por juicio (o intencional)**
-El investigador selecciona los elementos que considera **más representativos*- según su experiencia o criterio.
+El investigador selecciona los elementos que considera **más representativos** según su experiencia o criterio.
 
 *Ejemplo:*
 Un experto en calidad selecciona piezas que, según su experiencia, representan los casos más críticos del proceso productivo.
@@ -141,7 +141,7 @@ Ejemplo:
 
 ## 3. Métodos pictóricos y tabulares
 
-Los métodos gráficos permiten **visualizar la distribución y variabilidad*- de los datos.
+Los métodos gráficos permiten **visualizar la distribución y variabilidad** de los datos.
 
 ### 3.1. Notaciones
 
@@ -156,24 +156,24 @@ Los métodos gráficos permiten **visualizar la distribución y variabilidad*- d
 
 En términos simples, es un resumen organizado de tus datos. Su objetivo es mostrar cómo se distribuyen los valores de una variable, permitiéndonos identificar patrones, valores dominantes o datos atípicos (outliers) de un solo vistazo.
 
-**Ejemplo**. Imaginemos que ahora encuestamos a **20 estudiantes de Data Science*- sobre cuántas horas dedican al día a estudiar programación:
+**Ejemplo**. Imaginemos que ahora encuestamos a **20 estudiantes de Data Science** sobre cuántas horas dedican al día a estudiar programación:
 
-**Dataset:*- `[2, 3, 3, 4, 2, 5, 3, 4, 2, 3, 4, 5, 3, 2, 4, 3, 5, 4, 3, 2]`
+**Dataset:** `[2, 3, 3, 4, 2, 5, 3, 4, 2, 3, 4, 5, 3, 2, 4, 3, 5, 4, 3, 2]`
 
 La tabla de frencuencias del dataset anterior es la siguiente:
 
 | Horas | Frec_Absoluta | Frec_Relativa | Frec_Acumulada | Frec_Acum_% | Frec_Rel_Acumulada |
-|-------|---------------|---------------|----------------|-------------|-------------------|
-| 2     | 5             | 0.25          | 5              | 25.0%       | 0.25              |
-| 3     | 8             | 0.40          | 13             | 65.0%       | 0.65              |
-| 4     | 5             | 0.25          | 18             | 90.0%       | 0.90              |
-| 5     | 2             | 0.10          | 20             | 100.0%      | 1.00              |
+|-------|---------------|---------------|----------------|-------------|--------------------|
+| 2     | 5             | 0.25          | 5              | 25.0%       | 0.25               |
+| 3     | 8             | 0.40          | 13             | 65.0%       | 0.65               |
+| 4     | 5             | 0.25          | 18             | 90.0%       | 0.90               |
+| 5     | 2             | 0.10          | 20             | 100.0%      | 1.00               |
 
 Interpretación:
 
-- **El 65%**- de los estudiantes estudian **3 horas o menos**- al día
-- **3 horas**- es el valor más frecuente (moda) con 8 ocurrencias
-- Solo el **10%**- dedica 5 horas diarias
+- **El 65%** de los estudiantes estudian **3 horas o menos** al día
+- **3 horas** es el valor más frecuente (moda) con 8 ocurrencias
+- Solo el **10%** dedica 5 horas diarias
 
 Se usa [Pandas](https://pandas.pydata.org/) para procesar estructuras de datos de forma eficiente.
 
