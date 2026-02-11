@@ -82,7 +82,7 @@ Se selecciona un punto de inicio aleatorio y luego se elige cada (k)-ésimo elem
 *Ejemplo:*
 En un registro de 2,000 clientes se desea una muestra de 200. Se calcula (k = 2000/200 = 10). Si el primer cliente se selecciona aleatoriamente entre los primeros 10, luego se elige cada décimo cliente.
 
-![figura 2](media/fig3_muestreo_aleatorio_simple_sistematico.png)
+![figura 2](media/fig03_muestreo_aleatorio_simple_sistematico.png)
 
 **Figura 2**. Muestreo aleatorio simple y muestreo sistemático. Adaptado de "Estadística" por Mario R. Triolla, 2004, Person Education.
 
@@ -98,7 +98,7 @@ La población se divide en **conglomerados heterogéneos**, se seleccionan algun
 *Ejemplo:*
 Para evaluar el rendimiento académico en una ciudad, se seleccionan aleatoriamente ciertas escuelas (conglomerados) y se evalúa a todos los estudiantes de las escuelas seleccionadas.
 
-![figura 3](media/fig4_muestro_estratificado_conglomerados.png)
+![figura 3](media/fig04_muestro_estratificado_conglomerados.png)
 
 **Figura 3**. Muestreo estratificado y por conglomerados. Adaptado de "Estadística" por Mario R. Triolla, 2004, Person Education.
 
@@ -205,18 +205,195 @@ print(tabla_frec)
 
 [codigo python](codes/code-00-tabla-frecuencia.py)
 
+Salida del código:
+
+```plain
+   Horas  Frec_Absoluta  Frec_Relativa  Frec_Acumulada  Frec_Acum_%  Frec_Rel_Acumulada
+0      2              5           0.25               5         25.0                0.25
+1      3              7           0.35              12         60.0                0.60
+2      4              5           0.25              17         85.0                0.85
+3      5              3           0.15              20        100.0                1.00
+```
+
 ### 3.2. Gráfico de tallos y hojas
 
 Representación que conserva los valores originales y permite identificar la forma de la distribución. Es útil para conjuntos de datos pequeños o medianos.
 
+Este es un ejemplo de tallo y hoja, en python utilizando el paquete `stemgraphic`.
+
+```python
+import matplotlib.pyplot as plt
+import pandas as pd
+import stemgraphic
+
+LIST_VALUES = [
+    31, 40, 45, 49, 52, 53, 57, 58, 58, 60, 
+    61, 61, 63, 66, 67, 67, 67, 67, 68, 69, 
+    70, 70, 70, 70, 72, 73, 75, 75, 76, 76, 
+    78, 79, 80, 81, 83, 84]
+
+fig, ax = stemgraphic.stem_graphic(LIST_VALUES)
+plt.show()
+```
+
+Código disponible en [codigo python](codes/code-01-stem-leaf.py)
+
+Esta es la imagen que se genera a partir del código:
+
+![stemleaf](media/fig05_diagrama_tallos_hojas.png)
+
+Este es otro ejemplo de tallo y hoja, en python utilizando el paquete `pandas`.
+
+```python
+import matplotlib.pyplot as plt
+import pandas as pd
+import stemgraphic
+
+LIST_VALUES = [
+    31, 40, 45, 49, 52, 53, 57, 58, 58, 60, 
+    61, 61, 63, 66, 67, 67, 67, 67, 68, 69, 
+    70, 70, 70, 70, 72, 73, 75, 75, 76, 76, 
+    78, 79, 80, 81, 83, 84]
+
+df = pd.DataFrame(LIST_VALUES, columns=['Datos'])
+
+# Ordenar los datos
+df = df.sort_values(by='Datos')
+
+# Separar tallos y hojas
+df['Tallo'] = df['Datos'] // 10
+df['Hoja'] = df['Datos'] % 10
+
+# Agrupar por tallo
+stem_leaf = df.groupby('Tallo')['Hoja'].apply(list)
+print(stem_leaf)
+```
+
+Código disponible en [codigo python](codes/code-02-tallos-hojas-pandas.py)
+
+La salida del código es la siguiente:
+
+```plain
+Tallo
+3                                     [1]
+4                               [0, 5, 9]
+5                         [2, 3, 7, 8, 8]
+6       [0, 1, 1, 3, 6, 7, 7, 7, 7, 8, 9]
+7    [0, 0, 0, 0, 2, 3, 5, 5, 6, 6, 8, 9]
+8                            [0, 1, 3, 4]
+Name: Hoja, dtype: object
+```
+
+**Nota:** Cuando se construye el diagrama de tallos y hojas usando python, hay que hacer el cálculo manual de los tallos y las hojas.
+
 ### 3.3. Gráficos de puntos y diagrama de Pareto
 
-- **Gráfico de puntos**: cada observación se representa sobre una recta numérica.
-- **Diagrama de Pareto**: gráfico de barras ordenadas de mayor a menor frecuencia, acompañado de una curva acumulada. Se usa en control de calidad (regla 80–20).
+- **Gráfico de puntos**: cada observación se representa sobre una recta numérica. Visualiza la frecuencia o ubicación de cada valor individual, siendo útil para detectar patrones o dispersión en conjuntos de datos pequeños.
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Datos
+data = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 7, 7]
+
+# Preparar datos para el gráfico de puntos
+values, counts = np.unique(data, return_counts=True)
+
+# Crear el gráfico
+fig, ax = plt.subplots(figsize=(8, 2))
+for value, count in zip(values, counts):
+    ax.plot([value]*count, range(1, count+1), 'bo', markersize=10)
+
+# Configuración del gráfico
+ax.set_xticks(values)
+ax.set_yticks([])  # Ocultar eje Y ya que solo representa el conteo visual
+ax.set_title('Gráfico de Puntos')
+ax.set_xlabel('Valor')
+ax.set_ylim(0, max(counts) + 1)
+ax.grid(axis='x', linestyle='--', alpha=0.7)
+ax.spines['left'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+
+plt.show()
+```
+
+[codigo python](codes/code-03-grafico-puntos.py)
+
+![grafico puntos](media/fig07_grafico_puntos.png)
+
+- **Diagrama de Pareto**: gráfico de barras ordenadas de mayor a menor frecuencia, acompañado de una curva acumulada. Se usa en control de calidad para identificar los "pocos vitales" (regla 80–20), permitiendo priorizar problemas que tienen mayor impacto.
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.ticker import PercentFormatter
+
+# Datos de ejemplo: Quejas de clientes
+data = {'Defecto': ['Fuga', 'Ruido', 'Vibración', 'Calentamiento', 'Olor', 'Otros'],
+        'Frecuencia': [45, 30, 15, 5, 3, 2]}
+
+df = pd.DataFrame(data)
+df = df.sort_values(by='Frecuencia', ascending=False)
+df['Porcentaje Acumulado'] = df['Frecuencia'].cumsum() / df['Frecuencia'].sum() * 100
+
+# Configurar figura y ejes
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Gráfico de barras
+ax1.bar(df['Defecto'], df['Frecuencia'], color='C0')
+ax1.set_xlabel('Defecto')
+ax1.set_ylabel('Frecuencia', color='C0')
+ax1.tick_params(axis='y', labelcolor='C0')
+
+# Eje secundario para la línea de porcentaje acumulado
+ax2 = ax1.twinx()
+ax2.plot(df['Defecto'], df['Porcentaje Acumulado'], color='C1', marker='D', ms=7)
+ax2.yaxis.set_major_formatter(PercentFormatter())
+ax2.set_ylabel('Porcentaje Acumulado', color='C1')
+ax2.tick_params(axis='y', labelcolor='C1')
+ax2.set_ylim(0, 110)
+
+plt.title('Diagrama de Pareto')
+plt.grid(True, axis='y', linestyle='--', alpha=0.7)
+plt.show()
+```
+
+[codigo python](codes/code-04-diagrama-pareto.py)
+
+![diagrama pareto](media/fig06_diagrama_pareto.png)
 
 ### 3.4. Histogramas
 
-Representan la distribución de frecuencias de una variable cuantitativa continua mediante intervalos de clase.
+Representan la distribución de frecuencias de una variable cuantitativa continua mediante intervalos de clase. Permiten visualizar la forma de la distribución, su centro y dispersión.
+
+![histograma](media/fig08_histograma.png)
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Generar datos aleatorios con distribución normal
+np.random.seed(42)
+data = np.random.normal(loc=170, scale=10, size=250)
+
+# Crear el histograma
+plt.figure(figsize=(10, 6))
+plt.hist(data, bins=15, color='skyblue', edgecolor='black', alpha=0.7)
+
+# Añadir títulos y etiquetas
+plt.title('Histograma de Alturas (Simulado)')
+plt.xlabel('Altura (cm)')
+plt.ylabel('Frecuencia')
+plt.grid(axis='y', alpha=0.5)
+
+plt.show()
+```
+
+[codigo python](codes/code-05-histograma.py)
+
+![histograma](media/fig08_histograma.png)
 
 #### 3.4.1. Formas de histogramas
 
@@ -231,15 +408,92 @@ Representan la distribución de frecuencias de una variable cuantitativa continu
 
 ### 3.5. Gráficos de barras
 
-Se utilizan para variables categóricas o discretas. La altura de cada barra representa la frecuencia o proporción.
+Se utilizan para variables categóricas o discretas. La altura de cada barra representa la frecuencia o proporción. Son ideales para comparar magnitudes entre diferentes categorías.
+
+```python
+import matplotlib.pyplot as plt
+
+# Datos de ejemplo
+categorias = ['A', 'B', 'C', 'D', 'E']
+valores = [23, 45, 56, 12, 33]
+
+# Crear gráfico de barras
+plt.figure(figsize=(8, 5))
+plt.bar(categorias, valores, color='green', alpha=0.6)
+
+# Añadir títulos y etiquetas
+plt.title('Gráfico de Barras Simple')
+plt.xlabel('Categoría')
+plt.ylabel('Valor')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+plt.show()
+```
+
+[codigo python](codes/code-06-grafico-barras.py)
+
+![grafico barras](media/fig09_grafico_barras.png)
 
 ### 3.6. Gráficos circulares
 
-También llamados gráficos de pastel. Representan proporciones relativas de categorías. Son útiles para comparaciones simples, pero poco recomendables para análisis detallados.
+También llamados gráficos de pastel. Representan proporciones relativas de categorías. Son útiles para comparaciones simples, pero poco recomendables para análisis detallados debido a la dificultad de comparar áreas visualmente.
+
+```python
+import matplotlib.pyplot as plt
+
+# Datos de ejemplo
+labels = ['Frutas', 'Verduras', 'Carnes', 'Lácteos']
+sizes = [30, 45, 15, 10]
+colors = ['gold', 'yellowgreen', 'lightcoral', 'lightskyblue']
+explode = (0.1, 0, 0, 0)  # explotar la primera rebanada
+
+# Crear gráfico circular
+plt.figure(figsize=(7, 7))
+plt.pie(sizes, explode=explode, labels=labels, colors=colors,
+        autopct='%1.1f%%', shadow=True, startangle=140)
+
+plt.axis('equal')  # Para asegurar que se dibuje como un círculo
+plt.title('Distribución de Alimentos')
+plt.show()
+```
+
+[codigo python](codes/code-07-grafico-circular.py)
+
+![grafico circular](media/fig10_grafico_circular.png)
 
 ### 3.7. Polígonos de frecuencia
 
-Se construyen uniendo los puntos medios de las clases de un histograma. Permiten comparar varias distribuciones en un mismo gráfico.
+Se construyen uniendo los puntos medios de las clases de un histograma. Permiten comparar varias distribuciones en un mismo gráfico, facilitando la visualización de cambios en los datos.
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Datos simulados
+puntos_medios = [5, 15, 25, 35, 45]
+frecuencias = [10, 25, 40, 15, 5]
+
+# Cerrar el polígono
+puntos_medios_ext = [puntos_medios[0] - 10] + puntos_medios + [puntos_medios[-1] + 10]
+frecuencias_ext = [0] + frecuencias + [0]
+
+# Crear polígono
+plt.figure(figsize=(8, 5))
+plt.plot(puntos_medios_ext, frecuencias_ext, marker='o', linestyle='-', color='purple')
+plt.fill_between(puntos_medios_ext, frecuencias_ext, alpha=0.2, color='purple')
+
+plt.title('Polígono de Frecuencias')
+plt.xlabel('Punto Medio de Clase')
+plt.ylabel('Frecuencia Absoluta')
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.xticks(np.arange(-5, 60, 10))
+
+plt.show()
+```
+
+[codigo python](codes/code-09-poligono-frecuencia.py)
+
+![poligono frecuencia](media/fig12_grafico_poligono_frecuecnias.png)
 
 ### 3.8. Ojivas
 
@@ -248,6 +502,44 @@ Gráficos de frecuencias acumuladas. Son útiles para:
 - Determinar percentiles
 - Analizar la distribución acumulada
 - Comparar muestras
+
+Se trazan límites superiores de las clases contra frecuencias acumuladas.
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Datos simulados
+limites_superiores = [20, 30, 40, 50, 60]
+frecuencias = [5, 12, 20, 8, 5]
+frecuencias_acumuladas = np.cumsum(frecuencias)
+
+# Añadir límite inferior inicial
+limites = [10] + limites_superiores
+acumuladas = [0] + list(frecuencias_acumuladas)
+
+# Crear Ojiva
+plt.figure(figsize=(8, 5))
+plt.plot(limites, acumuladas, marker='o', linestyle='-', color='darkorange')
+
+plt.title('Ojiva (Polígono de Frecuencias Acumuladas)')
+plt.xlabel('Límite Superior de Clase')
+plt.ylabel('Frecuencia Acumulada')
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.xticks(np.arange(0, 70, 10))
+plt.ylim(0, max(acumuladas) * 1.1)
+
+# Anotaciones
+for x, y in zip(limites, acumuladas):
+    if y > 0:
+        plt.text(x, y + 1, str(y), ha='center')
+
+plt.show()
+```
+
+[codigo python](codes/code-08-ojiva.py)
+
+![ojiva](media/fig11_grafico_ojiva.png)
 
 ---
 

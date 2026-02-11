@@ -1,0 +1,12 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import stemgraphic
+
+LIST_VALUES = [
+    31, 40, 45, 49, 52, 53, 57, 58, 58, 60, 
+    61, 61, 63, 66, 67, 67, 67, 67, 68, 69, 
+    70, 70, 70, 70, 72, 73, 75, 75, 76, 76, 
+    78, 79, 80, 81, 83, 84]
+
+fig, ax = stemgraphic.stem_graphic(LIST_VALUES)
+plt.show()
