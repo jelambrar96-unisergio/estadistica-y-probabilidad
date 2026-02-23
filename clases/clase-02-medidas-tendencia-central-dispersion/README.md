@@ -124,11 +124,13 @@ $$
 Es la raíz cuadrada de la varianza. Tiene la ventaja de estar expresada en las mismas unidades que los datos originales.
 
 #### 3.3.1. Desviación estándar poblacional ($\sigma$)
+
 $$
 \sigma = \sqrt{\sigma^2}
 $$
 
 #### 3.3.2. Desviación estándar muestral ($s$)
+
 $$
 s = \sqrt{s^2}
 $$
@@ -264,6 +266,7 @@ M_k = L_i + \left( \frac{\frac{k \cdot n}{N} - F_{i-1}}{f_i} \right) \cdot a_i
 $$
 
 Donde:
+
 - $L_i$: Límite inferior de la clase donde se encuentra la medida.
 - $k \cdot n / N$: Posición de la medida (ej. $n/2$ para la mediana, $n/4$ para $Q_1$).
 - $F_{i-1}$: Frecuencia absoluta acumulada de la clase anterior.
@@ -273,9 +276,11 @@ Donde:
 ### 6.6. Ejemplo en Python (Datos Agrupados)
 
 #### Cálculos de tendencia y dispersión
+
 [Código completo: code-06-datos-agrupados.py](codes/code-06-datos-agrupados.py)
 
 #### Cálculos de posición (Mediana, Cuartiles y Percentiles)
+
 [Código completo: code-07-posicion-agrupados.py](codes/code-07-posicion-agrupados.py)
 
 ---
