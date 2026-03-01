@@ -2,15 +2,15 @@
 
 2.15 Considere el espacio muestral
 
-$S = \{$cobre, sodio, nitrógeno, potasio, uranio, oxígeno, cinc$\}$
+$S = \{$ cobre, sodio, nitrógeno, potasio, uranio, oxígeno, cinc $\}$
 
 y los eventos
 
-$A = \{$cobre, sodio, cinc$\}$
+$A = \{$ cobre, sodio, cinc $\}$
 
-$B = \{$sodio, nitrógeno, potasio$\}$
+$B = \{$ sodio, nitrógeno, potasio $\}$
 
-$C = \{$oxígeno$\}$
+$C = \{$ oxígeno $\}$
 
 Liste los elementos de los conjuntos que corresponden
 a los siguientes eventos:
