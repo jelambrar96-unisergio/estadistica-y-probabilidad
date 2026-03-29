@@ -100,16 +100,16 @@ En esta sección se definen los conceptos de conjuntos, operaciones entre conjun
 
 La teoría de la probabilidad utiliza el lenguaje de la teoría de conjuntos para formalizar sus conceptos. En este marco, el espacio muestral se define como el conjunto universal y los eventos como subconjuntos de este.
 
-| Teoría de Conjuntos | Teoría de Probabilidad |
-| :--- | :--- |
-| Conjunto Universal ($S$) | Espacio Muestral |
-| Elemento ($x \in S$) | Resultado elemental / Punto muestral |
-| Subconjunto ($A \subseteq S$) | Evento o Suceso |
-| Conjunto vacío ($\emptyset$) | Evento imposible |
-| Unión ($A \cup B$) | Evento "A o B" (ocurre al menos uno) |
-| Intersección ($A \cap B$) | Evento "A y B" (ocurren ambos) |
-| Complemento ($A^c$) | Evento "No A" (suceso contrario) |
-| Conjuntos disjuntos ($A \cap B = \emptyset$) | Eventos mutuamente excluyentes |
+| Teoría de Conjuntos                          | Teoría de Probabilidad               |
+| :------------------------------------------- | :----------------------------------- |
+| Conjunto Universal ($S$)                     | Espacio Muestral                     |
+| Elemento ($x \in S$)                         | Resultado elemental / Punto muestral |
+| Subconjunto ($A \subseteq S$)                | Evento o Suceso                      |
+| Conjunto vacío ($\emptyset$)                 | Evento imposible                     |
+| Unión ($A \cup B$)                           | Evento "A o B" (ocurre al menos uno) |
+| Intersección ($A \cap B$)                    | Evento "A y B" (ocurren ambos)       |
+| Complemento ($A^c$)                          | Evento "No A" (suceso contrario)     |
+| Conjuntos disjuntos ($A \cap B = \emptyset$) | Eventos mutuamente excluyentes       |
 
 Un **conjunto** es una colección de elementos.
 
@@ -369,7 +369,7 @@ Probabilidad estimada tras 100000 experimentos: 0.49983
 
 ---
 
-### 4.1. Axiomas de la probabilidad (Kolmogorov)
+### 3.1. Axiomas de la probabilidad (Kolmogorov)
 
 Sea $S$ el espacio muestral:
 
@@ -418,67 +418,6 @@ En un espacio muestral donde todos los resultados son igualmente probables (equi
 $$
 P(A) = \frac{|A|}{|S|}
 $$
-
----
-
-### 4.5. Probabilidad condicional
-
-Es la probabilidad de que ocurra un evento $A$, sabiendo que ya ha ocurrido (o se asume que ocurrió) otro evento $B$. Restringe el espacio muestral original a los resultados contenidos en $B$.
-$$
-P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0
-$$
-
----
-
-### 4.6. Regla de Bayes
-
-Permite calcular la probabilidad de una causa (evento $A_i$) dado un efecto observado (evento $B$), basándose en el conocimiento previo de las probabilidades de las causas y las probabilidades del efecto dada cada causa.
-Sea $A_1, A_2, \ldots, A_n$ una partición del espacio muestral:
-$$
-P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\sum_{j=1}^{n} P(B|A_j)P(A_j)}
-$$
-
-![alt text](media/fig4_regla_bayes.png)
-
-#### Ejemplo: Diagnóstico de una enfermedad rara
-
-Supongamos que el 0.1% de los adultos padece una enfermedad rara ($A_1$). Se ha desarrollado una prueba de diagnóstico tal que:
-
-* Si un individuo tiene la enfermedad, la prueba es positiva ($B$) el 99% de las veces ($P(B|A_1) = 0.99$).
-* Si un individuo no tiene la enfermedad ($A_2$), la prueba es positiva el 2% de las veces ($P(B|A_2) = 0.02$).
-
-Si un individuo seleccionado al azar da positivo, ¿cuál es la probabilidad de que realmente tenga la enfermedad?
-
-![alt text](media/fig5_ejemplo_bayes.png)
-
-$$
-P(A_1|B) = \frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1) + P(B|A_2)P(A_2)}
-$$
-
-$$
-P(A_1|B) = \frac{(0.99)(0.001)}{(0.99)(0.001) + (0.02)(0.999)} = \frac{0.00099}{0.00099 + 0.01998} \approx 0.0472
-$$
-
-```python
-# Probabilidades a priori
-p_a1 = 0.001  # Tiene la enfermedad
-p_a2 = 1 - p_a1  # No tiene la enfermedad
-
-# Probabilidades condicionales (verosimilitud)
-p_b_dado_a1 = 0.99  # Positivo dado que tiene la enfermedad
-p_b_dado_a2 = 0.02  # Positivo dado que no tiene la enfermedad (falso positivo)
-
-# Teorema de Bayes
-p_a1_dado_b = (p_b_dado_a1 * p_a1) / (p_b_dado_a1 * p_a1 + p_b_dado_a2 * p_a2)
-
-print(f"La probabilidad de tener la enfermedad dado un resultado positivo es: {p_a1_dado_b:.4f}")
-```
-
-```plain
-La probabilidad de tener la enfermedad dado un resultado positivo es: 0.0472
-```
-
-Este resultado parece contraintuitivo; la prueba de diagnóstico parece tan precisa que es altamente probable que alguien con un resultado positivo de prueba tenga la enfermedad, mientras que la probabilidad condicional calculada es de sólo `0.0472`. Sin embargo, como la enfermedad es rara y la prueba es sólo moderadamente confiable, surgen más resultados positivos falsos que positivos verdaderos.
 
 ---
 
