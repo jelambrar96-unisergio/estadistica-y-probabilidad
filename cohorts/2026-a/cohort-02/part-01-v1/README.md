@@ -34,7 +34,7 @@ Tomado de Miller, D. D., & Freund, J. E. (2015). *Probability and Statistics for
 
 ---
 
-## Problema 2 (20 puntos)
+## Pregunta 2 (20 puntos)
 
 **2.93** En la figura 2.11 se muestra un sistema de circuitos. Donde los números representa las probabilidades que el sistema funcione correctamente. Suponga que los componentes fallan de manera independiente.
 
