@@ -41,7 +41,7 @@ Tomado de Miller, D. D., & Freund, J. E. (2015). *Probability and Statistics for
 1. ¿Cuál es la probabilidad de que el sistema completo funcione?
 2. Dado que el sistema funciona, ¿cuál es la probabilidad de que el componente A no funcione?
 
-![Figura 2.11](media/image_02_diagrama_bloques.png)
+![Figura 2.11](media/image_02_diagrama_bloques_mermaid.png)
 
 Tomado de Walpole, R. E., Myers, R. H., Myers, S. L., & Ye, K. (2012). *Probability & Statistics for Engineers & Scientists* (9th ed.). Pearson.
 
