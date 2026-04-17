@@ -1,0 +1,19 @@
+graph LR
+    %% Definición de nodos
+    A["P(A) = 0.8"]
+    B["P(B) = 0.8"]
+    C["P(C) = 0.7"]
+    D["P(D) = 0.7"]
+    E["P(E) = 0.7"]
+    
+    %% Nodos invisibles para unión paralela
+    Start(( ))
+    End(( ))
+
+    %% Conexiones
+    Start --> A --> B --> End
+    Start --> C --> D --> E --> End
+
+    %% Estilos (Opcional, para mejor visualización)
+    style Start fill:#333,stroke:#333
+    style End fill:#333,stroke:#333
