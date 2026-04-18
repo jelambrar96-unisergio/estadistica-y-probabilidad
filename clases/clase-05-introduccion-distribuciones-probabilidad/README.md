@@ -277,6 +277,37 @@ varianza = norm.var(loc=0, scale=1)
 print(f"Varianza: {varianza}")
 ```
 
+Si la variable aleatoria X tiene un conjunto de posibles valores D y una función masa de probabilidad p(x), entonces el valor esperado de cualquier función h(X), denotada por $E[h(X)]$ o $h(X)$, se calcula con
+
+$$ E[h(X)] = \sum_{x \in D} h(x) p(x) $$
+
+**Ejemplo de Código:**
+
+```python
+import numpy as np
+
+x = np.array([0, 1, 2, 3])
+probabilidades = np.array([0.1, 0.2, 0.3, 0.4])
+
+# funcion de valor esperado
+func = lambda x: x ** 2
+
+valor_esperado = np.sum(x * probabilidades)
+print(f"Valor Esperado (Media): {valor_esperado}")
+
+variaza_esperada = np.sum((x - valor_esperado) ** 2 * probabilidades)
+print(f"Varianza Esperada: {variaza_esperada}")
+
+valor_esperado_func = np.sum(func(x) * probabilidades)
+print(f"Valor Esperado (Media): {valor_esperado_func}")
+```
+
+```plain
+Valor Esperado (Media): 2.0
+Varianza Esperada: 1.0
+Valor Esperado (Media): 5.0
+```
+
 ### 5.3. Caso general: Momentos y función generatriz de momentos
 
 Los **Momentos** son generalizaciones de la media y la varianza. El $k$-ésimo momento ordinario se define como:
