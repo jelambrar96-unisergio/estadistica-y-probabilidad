@@ -134,6 +134,7 @@ Para una V.A. continua $X$, la **PDF** $f(x)$ debe cumplir:
 
 1. $f(x) \geq 0$ para todo $x$.
 2. El área total bajo la curva es 1:
+3. $P(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx$
 
 $$ \int_{-\infty}^{\infty} f(x) \, dx = 1 $$
 
@@ -199,7 +200,7 @@ plt.grid(True)
 plt.show()
 ```
 
-![image_05_distribucion_probabilidad_acumulada_continua](media/image_05_distribucion_probabilidad_acumulada_continua.png)
+![image_05_distribucion_probabilidad_acumulada_continua](media/image_05_destribucion_probabilidad_acumulada_continua.png)
 
 ---
 
@@ -319,3 +320,79 @@ La **Función Generatriz de Momentos (MGF)** es una herramienta poderosa que "al
 $$ M_X(t) = E[e^{tX}] $$
 
 Si derivamos $M_X(t)$ respecto a $t$ y evaluamos en $t=0$, obtenemos los momentos de la variable.
+
+---
+
+## 6. Teorema de Chebyshev
+
+El matemático ruso **P. L. Chebyshev** (1821-1894) descubrió que la fracción del área bajo cualquier distribución de probabilidad que se encuentra entre cualesquiera dos valores simétricos alrededor de la media está íntimamente relacionada con la desviación estándar.
+
+El **Teorema de Chebyshev** ofrece una cota inferior para la probabilidad de que una variable aleatoria $X$ caiga dentro de $k$ desviaciones estándar de su media $\mu$. Lo más potente de este teorema es que es válido para **cualquier** distribución de probabilidad, ya sea discreta o continua, simétrica o sesgada.
+
+### 6.1. Definición Formal
+
+Para cualquier variable aleatoria $X$ con media $\mu$ y desviación estándar $\sigma$, y para cualquier número real $k > 1$:
+
+$$P(\mu - k\sigma < X < \mu + k\sigma) \geq 1 - \frac{1}{k^2}$$
+
+O en términos de valor absoluto (la probabilidad de que la variable esté "lejos" de la media):
+
+$$P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}$$
+
+### 6.2. Interpretaciones Clave
+
+| Desviaciones ($k$) | Probabilidad Mínima ($1 - 1/k^2$) | Significado |
+| :---: | :---: | :--- |
+| $k=2$ | $0.75$ ($75\%$) | Al menos $3/4$ de los datos están en el intervalo $\mu \pm 2\sigma$. |
+| $k=3$ | $0.888...$ ($88.9\%$) | Al menos $8/9$ de los datos están en el intervalo $\mu \pm 3\sigma$. |
+| $k=4$ | $0.9375$ ($93.8\%$) | Al menos $15/16$ de los datos están en el intervalo $\mu \pm 4\sigma$. |
+
+> [!IMPORTANT]
+> El teorema de Chebyshev se conoce como un resultado de **distribución libre**. Es especialmente útil cuando se desconoce la forma de la distribución, aunque sus límites suelen ser conservadores. Si conocemos la distribución (ej. Normal), podemos obtener probabilidades mucho más precisas.
+
+---
+
+### Ejemplo 4.27
+
+Supongamos una variable aleatoria $X$ con media $\mu = 8$ y varianza $\sigma^2 = 9$ (por ende, $\sigma = 3$). No conocemos el tipo de distribución.
+
+**a) Hallar la probabilidad de que $X$ caiga entre $-4$ y $20$**
+
+1. Definimos los límites del intervalo en términos de $k\sigma$:
+   - Inferior: $\mu - k\sigma = -4 \implies 8 - k(3) = -4 \implies 3k = 12 \implies k = 4$
+   - Superior: $\mu + k\sigma = 20 \implies 8 + k(3) = 20 \implies 3k = 12 \implies k = 4$
+2. Aplicamos la fórmula:
+   $$P(-4 < X < 20) \geq 1 - \frac{1}{4^2} = 1 - \frac{1}{16} = \frac{15}{16} \approx 0.9375$$
+   Hay una probabilidad de **al menos 93.75%** de que $X$ esté en este rango.
+
+**b) Hallar $P(|X - 8| \geq 6)$**
+
+1. Notamos que $6$ representa la distancia máxima desde la media $\mu=8$:
+   - $k\sigma = 6 \implies k(3) = 6 \implies k = 2$
+2. Aplicamos la forma complementaria del teorema:
+   $$P(|X - 8| \geq 6) \leq \frac{1}{2^2} = \frac{1}{4} = 0.25$$
+   La probabilidad de que $X$ se aleje más de $6$ unidades de la media es **como máximo de 25%**.
+
+---
+
+### 6.3. Verificación con Código (Python)
+
+Podemos comparar el límite de Chebyshev con una distribución específica para ver qué tan "conservador" es:
+
+```python
+import numpy as np
+from scipy.stats import norm
+
+# Parámetros del problema
+mu, sigma = 8, 3
+k = 2  # Buscamos el intervalo mu +/- 2*sigma (de 2 a 14)
+
+# 1. Cota de Chebyshev
+chebyshev_limit = 1 - 1/k**2
+
+# 2. Probabilidad Real si la distribución fuera Normal
+prob_normal = norm.cdf(mu + k*sigma, mu, sigma) - norm.cdf(mu - k*sigma, mu, sigma)
+
+print(f"Cota de Chebyshev (k=2): {chebyshev_limit:.4f} (Mínimo 75%)")
+print(f"Probabilidad Exacta (Si fuera Normal): {prob_normal:.4f} (Aprox 95.4%)")
+```
