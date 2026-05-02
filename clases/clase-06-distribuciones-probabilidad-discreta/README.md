@@ -69,13 +69,13 @@ plt.show()
 
 ---
 
-## 3. Distribución Binomial
+## 2. Distribución Binomial
 
-### 3.1. Introducción
+### 2.1. Introducción
 
 La distribución binomial modela el número de éxitos en $n$ ensayos independientes de Bernoulli, cada uno con probabilidad $p$ de éxito.
 
-### 3.2. Definición matemática
+### 2.2. Definición matemática
 
 Para $k = 0, 1, \dots, n$:
 
@@ -83,7 +83,7 @@ $$
 P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}
 $$
 
-### 3.3. Características
+### 2.3. Características
 
 - Media:
 
@@ -95,11 +95,11 @@ $$
 \sigma^2 = np(1-p)
 $$
 
-### 3.4. Ejemplo de ejercicio
+### 2.4. Ejemplo de ejercicio
 
 "Una moneda se lanza 10 veces con probabilidad de cara $p = 0.4$. ¿Cuál es la probabilidad de obtener exactamente 4 caras?"
 
-### 3.5. Ejemplo resuelto en Python
+### 2.5. Ejemplo resuelto en Python
 
 ```python
 from math import comb
@@ -110,7 +110,7 @@ def binomial_prob(n, p, k):
 print('P(X = 4) con n = 10 y p = 0.4:', binomial_prob(10, 0.4, 4))
 ```
 
-### 3.6. Código Python de ejemplo
+### 2.6. Código Python de ejemplo
 
 ```python
 import numpy as np
@@ -136,13 +136,13 @@ plt.show()
 
 ---
 
-## 5. Distribución Multinomial
+## 3. Distribución Multinomial
 
-### 5.1. Introducción
+### 3.1. Introducción
 
 La distribución multinomial generaliza la binomial cuando hay más de dos categorías posibles en cada ensayo, como lanzar un dado o clasificar elementos en varias clases.
 
-### 5.2. Definición matemática
+### 3.2. Definición matemática
 
 Para $n$ ensayos y categorías con probabilidades $p_1, \dots, p_m$ que suman 1, la probabilidad de obtener los conteos $k_1, \dots, k_m$ es:
 
@@ -156,7 +156,7 @@ $$
 \sum_{i=1}^m k_i = n
 $$
 
-### 5.3. Características
+### 3.3. Características
 
 - Media:
 
@@ -172,11 +172,11 @@ $$
 \operatorname{Var}[X_i] = n p_i (1-p_i)
 $$
 
-### 5.4. Ejemplo de ejercicio
+### 3.4. Ejemplo de ejercicio
 
 "En 5 lanzamientos de un dado, ¿cuál es la probabilidad de obtener exactamente 2 unos, 2 doses y 1 tres?"
 
-### 5.5. Ejemplo resuelto en Python
+### 3.5. Ejemplo resuelto en Python
 
 ```python
 from math import factorial
@@ -193,7 +193,7 @@ def multinomial_prob(n, ps, ks):
 print('P([2,2,1,0,0,0]) en 5 lanzamientos:', multinomial_prob(5, [1/6]*6, [2, 2, 1, 0, 0, 0]))
 ```
 
-### 5.6. Código Python de ejemplo
+### 3.6. Código Python de ejemplo
 
 ```python
 import numpy as np
@@ -279,13 +279,13 @@ plt.show()
 
 ---
 
-## 2. Distribución de Poisson
+## 5. Distribución de Poisson
 
-### 2.1. Introducción
+### 5.1. Introducción
 
 La distribución de Poisson modela el número de eventos que ocurren en un intervalo fijo de tiempo o espacio cuando los eventos son raros e independientes.
 
-### 2.2. Definición matemática
+### 5.2. Definición matemática
 
 Si $\lambda > 0$ es la tasa promedio de ocurrencias, entonces:
 
@@ -293,17 +293,17 @@ $$
 P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}, \qquad k = 0, 1, 2, \dots
 $$
 
-### 2.3. Características
+### 5.3. Características
 
 - Media: $\mu = \lambda$
 
 - Varianza: $\sigma^2 = \lambda$
 
-### 2.4 Ejemplo de ejercicio
+### 5.4. Ejemplo de ejercicio
 
 "En promedio se reciben 3 llamadas por hora a un centro de atención. ¿Cuál es la probabilidad de recibir exactamente 5 llamadas en una hora?"
 
-### 2.5. Ejemplo resuelto en Python
+### 5.5. Ejemplo resuelto en Python
 
 ```python
 from math import exp, factorial
@@ -314,7 +314,7 @@ def poisson_prob(k, lam):
 print('P(X = 5) con λ = 3:', poisson_prob(5, 3))
 ```
 
-### 2.6. Código Python de ejemplo
+### 5.6. Código Python de ejemplo
 
 ```python
 import numpy as np
@@ -339,7 +339,6 @@ plt.show()
 ```
 
 ---
-
 
 ## 6. Distribución Hipergeométrica
 
