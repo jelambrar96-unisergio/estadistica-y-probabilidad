@@ -69,67 +69,6 @@ plt.show()
 
 ---
 
-## 2. Distribución de Poisson
-
-### 2.1. Introducción
-
-La distribución de Poisson modela el número de eventos que ocurren en un intervalo fijo de tiempo o espacio cuando los eventos son raros e independientes.
-
-### 2.2. Definición matemática
-
-Si $\lambda > 0$ es la tasa promedio de ocurrencias, entonces:
-
-$$
-P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}, \qquad k = 0, 1, 2, \dots
-$$
-
-### 2.3. Características
-
-- Media: $\mu = \lambda$
-
-- Varianza: $\sigma^2 = \lambda$
-
-### 2.4 Ejemplo de ejercicio
-
-"En promedio se reciben 3 llamadas por hora a un centro de atención. ¿Cuál es la probabilidad de recibir exactamente 5 llamadas en una hora?"
-
-### 2.5. Ejemplo resuelto en Python
-
-```python
-from math import exp, factorial
-
-def poisson_prob(k, lam):
-    return exp(-lam) * lam**k / factorial(k)
-
-print('P(X = 5) con λ = 3:', poisson_prob(5, 3))
-```
-
-### 2.6. Código Python de ejemplo
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from math import exp, factorial
-
-lambdas = [1, 3, 6]
-k_max = 15
-x = np.arange(0, k_max + 1)
-
-plt.figure(figsize=(10, 4))
-for lam in lambdas:
-    p = [exp(-lam) * lam**k / factorial(k) for k in x]
-    plt.plot(x, p, marker='o', label=f'λ = {lam}')
-
-plt.title('Distribución de Poisson para diferentes valores de λ')
-plt.xlabel('k')
-plt.ylabel('P(X = k)')
-plt.legend()
-plt.grid(True)
-plt.show()
-```
-
----
-
 ## 3. Distribución Binomial
 
 ### 3.1. Introducción
@@ -189,71 +128,6 @@ for p in ps:
 
 plt.title('Distribución Binomial para diferentes valores de p')
 plt.xlabel('k (número de éxitos)')
-plt.ylabel('P(X = k)')
-plt.legend()
-plt.grid(True)
-plt.show()
-```
-
----
-
-## 4. Distribución Binomial Negativa
-
-### 4.1. Introducción
-
-La distribución binomial negativa cuenta el número de ensayos necesarios hasta obtener un número fijo de éxitos. Es útil cuando se observa repetición de ensayos hasta alcanzar una meta.
-
-### 4.2. Definición matemática
-
-Si se desea obtener $r$ éxitos y la probabilidad de éxito en cada ensayo es $p$, entonces la probabilidad de que el $r$-ésimo éxito ocurra en el ensayo $k$ es:
-
-$$
-P(X = k) = \binom{k-1}{r-1} p^r (1-p)^{k-r}, \qquad k = r, r+1, r+2, \dots
-$$
-
-### 4.3. Características
-
-- Media:
-
-$$\mu = \frac{r}{p}$$
-
-- Varianza:
-
-$$\sigma^2 = \frac{r(1-p)}{p^2}$$
-
-### 4.4. Ejemplo de ejercicio
-
-"Se lanzan monedas hasta obtener 3 caras. ¿Cuál es la probabilidad de que se necesiten exactamente 7 lanzamientos?"
-
-### 4.5. Ejemplo resuelto en Python
-
-```python
-from math import comb
-
-def negative_binomial_prob(r, p, k):
-    return comb(k - 1, r - 1) * p**r * (1 - p)**(k - r)
-
-print('P(k = 7) con r = 3 y p = 0.5:', negative_binomial_prob(3, 0.5, 7))
-```
-
-### 4.6. Código Python de ejemplo
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from math import comb
-
-r = 3
-ps = [0.3, 0.5]
-k = np.arange(r, r + 15)
-
-plt.figure(figsize=(10, 4))
-for p in ps:
-    p_k = [comb(ki - 1, r - 1) * p**r * (1 - p)**(ki - r) for ki in k]
-    plt.plot(k, p_k, marker='o', label=f'p = {p}')
-
-plt.title('Distribución Binomial Negativa para diferentes valores de p')
-plt.xlabel('k (ensayos hasta r éxitos)')
 plt.ylabel('P(X = k)')
 plt.legend()
 plt.grid(True)
@@ -339,6 +213,133 @@ print('Probabilidad de [2,2,1,0,0,0]:', multinomial_prob)
 ```
 
 ---
+
+## 4. Distribución Binomial Negativa
+
+### 4.1. Introducción
+
+La distribución binomial negativa cuenta el número de ensayos necesarios hasta obtener un número fijo de éxitos. Es útil cuando se observa repetición de ensayos hasta alcanzar una meta.
+
+### 4.2. Definición matemática
+
+Si se desea obtener $r$ éxitos y la probabilidad de éxito en cada ensayo es $p$, entonces la probabilidad de que el $r$-ésimo éxito ocurra en el ensayo $k$ es:
+
+$$
+P(X = k) = \binom{k-1}{r-1} p^r (1-p)^{k-r}, \qquad k = r, r+1, r+2, \dots
+$$
+
+### 4.3. Características
+
+- Media:
+
+$$\mu = \frac{r}{p}$$
+
+- Varianza:
+
+$$\sigma^2 = \frac{r(1-p)}{p^2}$$
+
+### 4.4. Ejemplo de ejercicio
+
+"Se lanzan monedas hasta obtener 3 caras. ¿Cuál es la probabilidad de que se necesiten exactamente 7 lanzamientos?"
+
+### 4.5. Ejemplo resuelto en Python
+
+```python
+from math import comb
+
+def negative_binomial_prob(r, p, k):
+    return comb(k - 1, r - 1) * p**r * (1 - p)**(k - r)
+
+print('P(k = 7) con r = 3 y p = 0.5:', negative_binomial_prob(3, 0.5, 7))
+```
+
+### 4.6. Código Python de ejemplo
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from math import comb
+
+r = 3
+ps = [0.3, 0.5]
+k = np.arange(r, r + 15)
+
+plt.figure(figsize=(10, 4))
+for p in ps:
+    p_k = [comb(ki - 1, r - 1) * p**r * (1 - p)**(ki - r) for ki in k]
+    plt.plot(k, p_k, marker='o', label=f'p = {p}')
+
+plt.title('Distribución Binomial Negativa para diferentes valores de p')
+plt.xlabel('k (ensayos hasta r éxitos)')
+plt.ylabel('P(X = k)')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+---
+
+## 2. Distribución de Poisson
+
+### 2.1. Introducción
+
+La distribución de Poisson modela el número de eventos que ocurren en un intervalo fijo de tiempo o espacio cuando los eventos son raros e independientes.
+
+### 2.2. Definición matemática
+
+Si $\lambda > 0$ es la tasa promedio de ocurrencias, entonces:
+
+$$
+P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}, \qquad k = 0, 1, 2, \dots
+$$
+
+### 2.3. Características
+
+- Media: $\mu = \lambda$
+
+- Varianza: $\sigma^2 = \lambda$
+
+### 2.4 Ejemplo de ejercicio
+
+"En promedio se reciben 3 llamadas por hora a un centro de atención. ¿Cuál es la probabilidad de recibir exactamente 5 llamadas en una hora?"
+
+### 2.5. Ejemplo resuelto en Python
+
+```python
+from math import exp, factorial
+
+def poisson_prob(k, lam):
+    return exp(-lam) * lam**k / factorial(k)
+
+print('P(X = 5) con λ = 3:', poisson_prob(5, 3))
+```
+
+### 2.6. Código Python de ejemplo
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from math import exp, factorial
+
+lambdas = [1, 3, 6]
+k_max = 15
+x = np.arange(0, k_max + 1)
+
+plt.figure(figsize=(10, 4))
+for lam in lambdas:
+    p = [exp(-lam) * lam**k / factorial(k) for k in x]
+    plt.plot(x, p, marker='o', label=f'λ = {lam}')
+
+plt.title('Distribución de Poisson para diferentes valores de λ')
+plt.xlabel('k')
+plt.ylabel('P(X = k)')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+---
+
 
 ## 6. Distribución Hipergeométrica
 
