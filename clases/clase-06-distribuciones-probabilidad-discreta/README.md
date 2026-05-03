@@ -48,6 +48,12 @@ def probabilidad_impar(a=1, b=6):
 print('Probabilidad de impar en un dado justo:', probabilidad_impar())
 ```
 
+```plain
+Probabilidad de impar en un dado justo: 0.5
+```
+
+Este codigo está disponible en [codes/code-00.py](codes/code-00.py)
+
 ### 1.6. Código Python de ejemplo
 
 ```python
@@ -66,6 +72,8 @@ plt.ylabel('P(X = x)')
 plt.grid(axis='y', alpha=0.3)
 plt.show()
 ```
+
+![Figure_01_distribucion_uniforme_discreta](media/Figure_01_distribucion_uniforme_discreta.png)
 
 ---
 
@@ -103,11 +111,35 @@ $$
 
 ```python
 from math import comb
+from scipy.stats import binom
 
-def binomial_prob(n, p, k):
+# contruccion de la distribucion binomial a partir de la definicion matematica
+
+def binomial_pdf(n, p, k):
     return comb(n, k) * p**k * (1 - p)**(n - k)
 
-print('P(X = 4) con n = 10 y p = 0.4:', binomial_prob(10, 0.4, 4))
+def binomial_cdf(n, p, k):
+    return sum(binomial_pdf(n, p, i) for i in range(k + 1))
+
+
+print('calculo usando la definicion')
+print('P(X = 4) con n = 10 y p = 0.4:', binomial_pdf(10, 0.4, 4))
+print('P(X <= 4) con n = 10 y p = 0.4:', binomial_cdf(10, 0.4, 4))
+print()
+
+print('calculo usando la funicion binom de scipy')
+print('P(X = 4) con n = 10 y p = 0.4:', binom.pmf(4, 10, 0.4))
+print('P(X <= 4) con n = 10 y p = 0.4:', binom.cdf(4, 10, 0.4))
+```
+
+```plain
+calculo usando la definicion
+P(X = 4) con n = 10 y p = 0.4: 0.250822656
+P(X <= 4) con n = 10 y p = 0.4: 0.6331032576
+
+calculo usando la funicion binom de scipy
+P(X = 4) con n = 10 y p = 0.4: 0.25082265599999987
+P(X <= 4) con n = 10 y p = 0.4: 0.6331032576
 ```
 
 ### 2.6. Código Python de ejemplo
@@ -115,16 +147,18 @@ print('P(X = 4) con n = 10 y p = 0.4:', binomial_prob(10, 0.4, 4))
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
-from math import comb
+
+from scipy.stats import binom
 
 n = 10
 ps = [0.2, 0.4, 0.7]
+colors = ['r', 'b', 'g'] # red, blue, green
 x = np.arange(0, n + 1)
 
 plt.figure(figsize=(10, 4))
-for p in ps:
-    p_x = [comb(n, k) * p**k * (1 - p)**(n - k) for k in x]
-    plt.plot(x, p_x, marker='o', label=f'p = {p}')
+for p, color in zip(ps, colors):
+    p_x = [binom.pmf(k, n, p) for k in x]
+    plt.stem(x, p_x, label=f'p = {p}', linefmt=f'{color}-', markerfmt=f'{color}o', basefmt=' ')
 
 plt.title('Distribución Binomial para diferentes valores de p')
 plt.xlabel('k (número de éxitos)')
@@ -133,6 +167,8 @@ plt.legend()
 plt.grid(True)
 plt.show()
 ```
+
+![Figure_02_distribucion_binomial_stem](media/Figure_02_distribucion_binomial_stem.png)
 
 ---
 
@@ -180,6 +216,7 @@ $$
 
 ```python
 from math import factorial
+from scipy.stats import multinomial
 
 def multinomial_prob(n, ps, ks):
     numer = factorial(n)
@@ -191,6 +228,16 @@ def multinomial_prob(n, ps, ks):
     return numer * prod / denom
 
 print('P([2,2,1,0,0,0]) en 5 lanzamientos:', multinomial_prob(5, [1/6]*6, [2, 2, 1, 0, 0, 0]))
+print()
+
+rv = multinomial(6, [1/6]*6,)
+print('P([2,2,1,0,0,0]) en 5 lanzamientos:', rv.pmf([2, 2, 1, 0, 0, 0]))
+```
+
+```plain
+P([2,2,1,0,0,0]) en 5 lanzamientos: 0.03215023255952381
+
+P([2,2,1,0,0,0]) en 5 lanzamientos: 0.03215023255952381
 ```
 
 ### 3.6. Código Python de ejemplo
@@ -210,6 +257,10 @@ for ki, pi in zip(k, p):
     multinomial_prob *= pi**ki / factorial(ki)
 
 print('Probabilidad de [2,2,1,0,0,0]:', multinomial_prob)
+```
+
+```plain
+Probabilidad de [2,2,1,0,0,0]: 0.0038580246913580236
 ```
 
 ---
@@ -246,11 +297,18 @@ $$\sigma^2 = \frac{r(1-p)}{p^2}$$
 
 ```python
 from math import comb
+from scipy.stats import nbinom
 
 def negative_binomial_prob(r, p, k):
     return comb(k - 1, r - 1) * p**r * (1 - p)**(k - r)
 
 print('P(k = 7) con r = 3 y p = 0.5:', negative_binomial_prob(3, 0.5, 7))
+print('P(k = 7) con r = 3 y p = 0.5:', nbinom.pmf(7, 3, 0.5))
+```
+
+```plain
+P(k = 7) con r = 3 y p = 0.5: 0.1171875
+P(k = 7) con r = 3 y p = 0.5: 0.03515625000000001
 ```
 
 ### 4.6. Código Python de ejemplo
@@ -262,12 +320,14 @@ from math import comb
 
 r = 3
 ps = [0.3, 0.5]
+colors = ['r', 'b'] # red, blue
 k = np.arange(r, r + 15)
 
+
 plt.figure(figsize=(10, 4))
-for p in ps:
+for p, color in zip(ps, colors):
     p_k = [comb(ki - 1, r - 1) * p**r * (1 - p)**(ki - r) for ki in k]
-    plt.plot(k, p_k, marker='o', label=f'p = {p}')
+    plt.stem(k, p_k, label=f'p = {p}', linefmt=f'{color}-', markerfmt=f'{color}o', basefmt=' ')  
 
 plt.title('Distribución Binomial Negativa para diferentes valores de p')
 plt.xlabel('k (ensayos hasta r éxitos)')
@@ -276,6 +336,8 @@ plt.legend()
 plt.grid(True)
 plt.show()
 ```
+
+![Figure_03_distribucion_binomial_negativa](media/Figure_03_distribucion_binomial_negativa_stem.png)
 
 ---
 
@@ -314,6 +376,10 @@ def poisson_prob(k, lam):
 print('P(X = 5) con λ = 3:', poisson_prob(5, 3))
 ```
 
+```plain
+P(X = 5) con λ = 3: 0.10081881344492448
+```
+
 ### 5.6. Código Python de ejemplo
 
 ```python
@@ -337,6 +403,8 @@ plt.legend()
 plt.grid(True)
 plt.show()
 ```
+
+![Figure_04_distribucion_poisson](media/Figure_04_distribucion_poisson_stem.png)
 
 ---
 
@@ -381,6 +449,16 @@ def hipergeo_prob(N, K, n, k):
     return comb(K, k) * comb(N-K, n-k) / comb(N, n)
 
 print('P(X = 2) con N = 25, K = 10, n = 5:', hipergeo_prob(25, 10, 5, 2))
+
+
+from scipy.stats import hypergeom
+
+print('P(X = 2) con N = 25, K = 10, n = 5:', hypergeom.pmf(2, 25, 10, 5))
+```
+
+```plain
+P(X = 2) con N = 25, K = 10, n = 5: 0.38537549407114624
+P(X = 2) con N = 25, K = 10, n = 5: 0.38537549407114624
 ```
 
 ### 6.6. Código Python de ejemplo
@@ -401,6 +479,8 @@ plt.ylabel('P(X = k)')
 plt.grid(axis='y', alpha=0.3)
 plt.show()
 ```
+
+![Figure_05_distribucion_hipergeometrica](media/Figure_05_distribucion_hipergeometrica_stem.png)
 
 ---
 
