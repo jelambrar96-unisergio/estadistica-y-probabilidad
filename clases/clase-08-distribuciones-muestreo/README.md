@@ -17,9 +17,9 @@ El muestreo aleatorio es un proceso fundamental en estadística que consiste en 
 
 Nuestro principal propósito al seleccionar muestras aleatorias consiste en obtener información acerca de los parámetros desconocidos de la población
 
-Ahora, $p̂$ es una función de los valores observados en la muestra aleatoria; ya que es posible tomar muchas muestras aleatorias de la misma población, esperaríamos que $p̂$ varíe de una muestra a otra.
+Ahora, $\hat{p}$ es una función de los valores observados en la muestra aleatoria; ya que es posible tomar muchas muestras aleatorias de la misma población, esperaríamos que $\hat{p}$ varíe de una muestra a otra.
 
-$p̂$ es un valor de una variable aleatoria que representamos con P. Tal variable aleatoria se llama **estadístico**. Cualquier función de las variables aleatorias que forman una muestra aleatoria se llama estadístico.
+$\hat{p}$ es un valor de una variable aleatoria que representamos con P. Tal variable aleatoria se llama **estadístico**. Cualquier función de las variables aleatorias que forman una muestra aleatoria se llama estadístico.
 
 La distribución de probabilidad de un estadístico se denomina distribución muestral.
 
